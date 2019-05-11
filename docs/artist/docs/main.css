@@ -1,0 +1,84 @@
+::-webkit-scrollbar {
+    display: none;
+}
+body, main, h1, h2, h3, h4, h5, h6, a, p, span, input {
+    font-family: 'Noto Sans KR', sans-serif !important;
+}
+.navHeader {
+    width: calc(100% - 16px);
+    height: 90px;
+    background: url('https://ggh-db.firebaseapp.com/img/logo.jpg');
+    background-size: cover;
+}
+#map {
+    position: fixed !important;
+    height: 100%;
+    width: 100%;
+}
+.uinfo {
+    padding-left: 16px;
+    color: #000000;
+}
+.a0 {
+    color: #440bd4;
+    cursor: pointer;
+}
+.fbtn {
+    z-index: 1;
+    position: fixed;
+    right: 25px;
+    bottom: -55px;
+    background-color: #440bd4 !important;
+    color: white !important;
+}
+
+.S_box {
+    background-color: white;
+    width: calc(100% - 24px);
+    bottom: -220px;
+    /* bottom: -60px; */
+    position: fixed;
+    z-index: 1;
+    height: auto;
+    border-radius: 8px;
+    min-height: 200px;
+    padding-left: 16px;
+}
+
+/*.card { 
+    width: calc(100% - 64px);
+    border: #ccc 2px solid;
+    border-radius: 20px;
+    padding: 20px;
+    margin: 10px;
+    cursor: pointer;
+    text-align: center;
+}
+.c_0 {
+    margin: 0px;
+    padding-bottom: 25px;
+    color: #66bb6a;    
+    font-size: 20px;
+    font-weight: bold;
+}
+.c_1_0 {
+    font-size: 28px;
+    color: #777777;
+    padding: 10px;
+    vertical-align: top;
+}
+.c_1_1 {
+    font-size: 52px;
+    color: #000000
+} */
+.mdl-layout__drawer-button {
+    color: #440bd4 !important;
+}
+.mdl-textfield__input {
+    border-bottom: 0px !important;
+}
+.mdl-layout__header {
+    /* display: block !important; */
+    background-color: rgba(0,0,0,0);
+    color: #440bd4 !important;
+}

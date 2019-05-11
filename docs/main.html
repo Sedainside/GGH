@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>공구함</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="theme-color" content="#009688">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.deep_purple-yellow.min.css" />
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR&amp;subset=korean" rel="stylesheet">
+    <link href="./docs/main.css" rel="stylesheet">
+</head>
+<body style="width:100%;">
+    <div class="mdl-layout mdl-js-layout mdl-layout--small-screen-only" style="width:100%;height:auto;min-height:calc(100%);">
+        <header class="mdl-layout__header mdl-layout__header--scroll">
+            <div class="mdl-layout__header-row">
+            <div class="mdl-layout-spacer"></div>
+            </div>
+        </header>
+        <div class="mdl-layout__drawer">
+            <div class="navHeader">
+            </div>
+            <nav class="mdl-navigation">
+                <div class="uinfo">                    
+                    <img id="auth3" src="./img/favicon.png" width="50px" style="border-radius:25px;"/>
+                    <div id="auth0">
+                        <p style="margin-top:10px;margin-bottom:0px;"><b id="auth1"></b></p>
+                        <p id="auth2"></p>
+                    </div>
+                </div>
+                <hr />
+                <a id="login" class="mdl-navigation__link" href="javascript:location.pathname='/login'"><i class="material-icons a0" style="margin-right:8px;">power_settings_new</i>로그인</a>
+                <a id="logout" class="mdl-navigation__link" href="javascript:logout();"><i class="material-icons a0" style="margin-right:8px;">power_settings_new</i>로그아웃</a>
+            </nav>
+        </div>
+        <main class="mdl-layout__content" style="width:100%;height:100%;" id="main">
+            <div id="map"></div>
+            <script>
+                var map;
+                function initMap() {
+                    map = new google.maps.Map(document.getElementById('map'), {
+                        center: {lat: 37.558309, lng: 126.925512},
+                        zoom: 14,
+                        zoomControl: false,
+                        mapTypeControl: false,
+                        scaleControl: false,
+                        streetViewControl: false,
+                        rotateControl: true,
+                        fullscreenControl: false
+                    });
+                }
+            </script>
+            <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAvm5fg3PXcil_ugvKZOnpfx684pjBfadc&callback=initMap" async defer></script>
+            <div class="mdl-card mdl-shadow--4dp" id="searchbox">
+                <div class="mdl-card__title">
+                    <i class="material-icons" id="s00" onclick="searchOFF('_mul')">arrow_back</i>
+                    <p class="mdl-card__title-text" id="s1" onclick="searchON()">여기서 검색</p>
+                    <div id="s2" class="mdl-textfield mdl-js-textfield" style="display: none; width: 70%; margin-left: 15px; padding: 0px;">
+                        <input class="mdl-textfield__input" type="text" id="s4">
+                        <label class="mdl-textfield__label" for="s4"></label>
+                    </div>
+                    <div class="mdl-layout-spacer"></div>
+                    <i class="material-icons" id="s3" onclick="searchClear();" style="margin-right:15px;">close</i>
+                    <i class="material-icons" id="s5" onclick="searchOFF('_mul');">search</i>
+                </div>
+            </div>
+            <div id="sPage">
+                <h6 style="color: #0000008a">검색 결과</h6>
+                <ul class='mdl-list' id="s9"></ul>
+            </div>
+            <div class="S_box mdl-shadow--4dp mdl-grid">
+                <div class="mdl-cell mdl-cell--3-col-phone">
+                    <h5 id="S_n"></h5>
+                    <p id="S_a"></p>
+                    <div id="S_c"></div>
+                </div>
+                <div class="mdl-cell mdl-cell--1-col-phone" style="text-align: center;padding-top: 30px;">
+                    <h6 id="S_m" style="margin: 0px;color:#440bd4"><i class='material-icons'>music_note</i></h6>
+                    <p style="color: rgba(0, 0, 0, 0.6); font-size: 12px; margin: 0px;">공연 정보</p> 
+                </div>
+            </div>
+            <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored fbtn" onclick="menu();">
+                <i class="material-icons">add</i>
+            </button>
+        </main>
+    </div>
+    
+    <script src="https://www.gstatic.com/firebasejs/5.9.1/firebase.js"></script>
+    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+    <script src="./docs/anime.min.js"></script>
+    <script src="./docs/main.js"></script>
+</body>
+</html>

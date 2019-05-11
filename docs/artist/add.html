@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>프로필 등록</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.deep_purple-yellow.min.css" />
+    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://www.gstatic.com/firebasejs/5.9.1/firebase.js"></script>
+    <script>
+        var config = {
+            apiKey: "AIzaSyCj_LnrpRwvEH7FwcrYgPMBkhjG5eWIIO4",
+            authDomain: "ggh-db.firebaseapp.com",
+            databaseURL: "https://ggh-db.firebaseio.com",
+            projectId: "ggh-db",
+            storageBucket: "ggh-db.appspot.com",
+            messagingSenderId: "37231611683"
+        };
+        firebase.initializeApp(config);
+
+        var db = firebase.firestore();
+
+        let _UID, _UIMG, _UNAME, _UEMAIL, _UTYPE;
+        firebase.auth().onAuthStateChanged(function(user){
+            if(!user || user.isAnonymous) location.pathname = "/login";
+            else {
+                _UNAME = user.displayName;
+                _UEMAIL = user.email || user.phoneNumber;
+                _UIMG = user.photoURL;
+                _UID = user.uid;
+                if (_UIMG == null) _UIMG = "https://ggh-db.firebaseapp.com/img/favicon.png";
+                db.collection("USERS").doc(_UID).get().then(doc => {
+                    if(doc.data() && doc.data() != undefined) {
+                        const T = doc.data().UTYPE;
+                        if (T * 1 != 1) {
+                            location.pathname = "/login";
+                        }
+                    } else {
+                        location.pathname = "/login";
+                    }
+                });
+            }
+        }, function(error){
+            location.pathname = "/";
+        });
+
+        var add = () => {
+            db.collection("USERS").doc(_UID).update({
+                A_name : document.getElementById('name').value,
+                A_info : document.getElementById("info").value,
+                A_birth : document.getElementById("birth").value * 1,
+                A_phone : document.getElementById("tell").value,
+                A_a: false
+            }).then(doc => {
+                location.pathname = "/artist"
+            }).catch(error => {
+                location.reload();
+            });
+        }
+    </script>
+</head>
+<body style="width: 100%; height: 100%; margin: 0px;">
+    <div class="mdl-layout mdl-js-layout mdl-layout--small-screen-only" style="width:100%;">
+        <main class="mdl-layout__content" style="margin-top:40px;">
+            <div class="mdl-layout-spacer"></div>
+            <div class="mdl-cell mdl-cell--4-col mdl-cell--4-col-tablet mdl-cell--4-col-phone" style="padding:1em;">
+                <br />
+                <div class="demo-card-square mdl-card" id="main" style="width:100%;">
+                    <div class="mdl-card__title mdl-card--expand">
+                        <h4 class="mdl-card__title-text" style="font-size:32px;width:100%;text-align:center !important;">프로필 정보 등록</h4>
+                    </div>
+                    <div class="mdl-card__supporting-text">
+                        <div style="margin-top: 25px; width: 100%;">
+                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                <input class="mdl-textfield__input" type="text" id="name" name="name">
+                                <label class="mdl-textfield__label" for="name">닉네임</label>
+                            </div>
+                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                <input class="mdl-textfield__input" type="text" id="tell" name="tell">
+                                <label class="mdl-textfield__label" for="tell">연락처 (ex. 010-000-0000)</label>
+                            </div><br />
+                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                <input class="mdl-textfield__input" type="number" id="birth" name="birth">
+                                <label class="mdl-textfield__label" for="birth">생년 (ex. 1997)</label>
+                            </div><br />
+                            <div class="mdl-textfield mdl-js-textfield">
+                                <textarea class="mdl-textfield__input" type="text" rows= "5" id="info" ></textarea>
+                                <label class="mdl-textfield__label" for="info">소개</label>
+                            </div><br />
+                        </div>
+                        <br /><br />
+                        <p>공구함에 프로필을 등록하시려면 <a href="javascript:location.pathname = '/artist/policy';">약관</a>에 동의해야합니다.</p>
+                        <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect" onclick="add();">동의하고 계속</button>
+                    </div>
+                </div>
+            </div>
+            <div class="mdl-layout-spacer"></div>
+        </main>
+    </div>
+</body>
+</html>

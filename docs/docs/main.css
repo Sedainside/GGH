@@ -1,0 +1,111 @@
+::-webkit-scrollbar {
+    display: none;
+}
+body, main, h1, h2, h3, h4, h5, h6, a, p, span, input {
+    font-family: 'Noto Sans KR', sans-serif !important;
+}
+.navHeader {
+    width: calc(100% - 16px);
+    height: 90px;
+    background: url('../img/logo.jpg');
+    background-size: cover;
+}
+#map {
+    position: fixed !important;
+    height: 100%;
+    width: 100%;
+}
+.uinfo {
+    padding-left: 16px;
+    color: #000000;
+}
+.a0 {
+    color: #440bd4;
+    cursor: pointer;
+}
+.fbtn {
+    z-index: 1;
+    position: fixed;
+    right: 25px;
+    bottom: -55px;
+    background-color: #440bd4 !important;
+    color: white !important;
+}
+
+.S_box {
+    background-color: white;
+    width: calc(100% - 24px);
+    bottom: -220px;
+    /* bottom: -60px; */
+    position: fixed;
+    z-index: 1;
+    height: auto;
+    border-radius: 8px;
+    min-height: 200px;
+    padding-left: 16px;
+}
+
+
+/* #searchBar {
+    width: 90%;
+    height: 36px;
+    border: 1px solid #444;
+    border-radius: 20px;
+    margin-bottom: 10px;
+}
+#searchText {
+    margin-left: 10px;
+    color: #666;
+    padding-top: 8px;
+    padding-bottom: 0px;
+} */
+#searchbox {
+    width: calc(100% - 78px - 15px);
+    margin-left: 78px;
+    top: 15px;
+    /* position: fixed; */
+    z-index: 5;
+    height: 48px;
+    border-radius: 30px;
+    min-height: 10px;
+}
+.mdl-card__title {
+    padding-top: 11px;
+}
+#s1 {
+    color: #777777;
+    font-size: 18px;
+    margin-left: 5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+}
+#sPage {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0px;
+    z-index: 2;
+    padding-left: 5%;
+    padding-right: 5%;
+    padding-top: 60px;
+    background-color: white;
+    display: none;
+}
+
+.mdl-layout__drawer-button {
+    color: #440bd4 !important;
+    background-color: #ffffff;
+    border-radius: 50%;
+    margin: 15px !important;
+    box-shadow: 0 4px 5px 0 rgba(0,0,0,.14), 0 1px 10px 0 rgba(0,0,0,.12), 0 2px 4px -1px rgba(0,0,0,.2);
+}
+.mdl-textfield__input {
+    border-bottom: 0px !important;
+}
+.mdl-layout__header {
+    /* display: block !important; */
+    background-color: rgba(0,0,0,0);
+    color: #440bd4 !important;
+}

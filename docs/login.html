@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+
+<html lang="ko" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>LOGIN</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="theme-color" content="#fff">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.deep_purple-yellow.min.css" />
+    <script src="https://www.gstatic.com/firebasejs/ui/3.5.2/firebase-ui-auth__ko.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/3.5.2/firebase-ui-auth.css" />
+    <style>
+        ::-webkit-scrollbar {
+            display: none;
+        }
+    </style>
+</head>
+<body style="width:100%;height:100%">
+    <div class="mdl-layout mdl-js-layout mdl-layout--small-screen-only" style="width:100%">
+        <main class="mdl-layout__content" style="width:100%;">
+            <div class="fin" style="width:100%;padding-top:70px;">
+                <img src="./img/logo.jpg" id="logoimg" width="150px" style="display:none;" />
+            </div>
+            <div style="margin-top:50px;text-align:center;">
+                <div id="firebaseui-auth-container"></div>
+                <div id="loader">Loading...</div>
+            </div>
+        </main>
+    </div>
+    
+    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.9.1/firebase.js"></script>
+    <script>
+        var config = {
+            apiKey: "AIzaSyCj_LnrpRwvEH7FwcrYgPMBkhjG5eWIIO4",
+            authDomain: "ggh-db.firebaseapp.com",
+            databaseURL: "https://ggh-db.firebaseio.com",
+            projectId: "ggh-db",
+            storageBucket: "ggh-db.appspot.com",
+            messagingSenderId: "37231611683"
+        };
+        firebase.initializeApp(config);
+
+        var checkState = function(){
+            firebase.auth().onAuthStateChanged(function(user){
+                if(user && !user.isAnonymous){
+                    location.pathname = "/init"
+                }
+            }, function(error){
+                console.log(error);
+            });
+        };
+
+        window.onload = () => {
+            let W = document.getElementsByTagName('body')[0].clientWidth;
+            document.getElementById('logoimg').style.marginLeft = (W - 150) / 2 + "px";
+            document.getElementById('logoimg').style.display = "block";
+            checkState();
+        }        
+        
+        var ui = new firebaseui.auth.AuthUI(firebase.auth());
+
+        var data = null;
+        var uiConfig = {
+            callbacks: {
+                signInSuccessWithAuthResult: function(authResult, redirectUrl) {
+                    var user = authResult.user;
+                    var credential = authResult.credential;
+                    var isNewUser = authResult.additionalUserInfo.isNewUser;
+                    var providerId = authResult.additionalUserInfo.providerId;
+                    var operationType = authResult.operationType;
+                    console.log(user);
+                    console.log(credential);
+                    console.log(isNewUser);
+                    console.log(providerId);
+                    console.log(operationType);
+                    // if (document.referrer != null) redirectUrl = document.referrer;
+                    return true;
+                },
+                signInFailure: function(error) {
+                    return handleUIError(error);
+                },
+                uiShown: function() {
+                    document.getElementById('loader').style.display = 'none';
+                }
+            },
+            signInFlow: 'popup',
+            signInSuccessUrl: 'https://ggh-db.firebaseapp.com/init',
+            signInOptions: [
+                {
+                    provider: firebase.auth.EmailAuthProvider.PROVIDER_ID,
+                    signInMethod: firebase.auth.EmailAuthProvider.EMAIL_LINK_SIGN_IN_METHOD
+                },{
+                    provider: firebase.auth.PhoneAuthProvider.PROVIDER_ID,
+                    recaptchaParameters: {
+                        type: 'image',
+                        size: 'invisible', // 'invisible' or 'compact'
+                        badge: 'inline' //' bottomright' or 'inline' applies to invisible.
+                    },
+                    defaultCountry: 'KR'
+                },
+                firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+                firebase.auth.FacebookAuthProvider.PROVIDER_ID,
+            ],
+            tosUrl: 'https://ggh-db.firebaseapp.com/PrivacyPolicy.html',
+            privacyPolicyUrl: 'https://ggh-db.firebaseapp.com/PrivacyPolicy.html'
+        };
+        ui.start('#firebaseui-auth-container', uiConfig);
+    </script>
+</body>
+</html>
