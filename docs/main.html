@@ -8,7 +8,6 @@
     <meta name="theme-color" content="#009688">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.deep_purple-yellow.min.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR&amp;subset=korean" rel="stylesheet">
     <link href="./docs/main.css" rel="stylesheet">
 </head>
@@ -24,7 +23,7 @@
             </div>
             <nav class="mdl-navigation">
                 <div class="uinfo">                    
-                    <img id="auth3" src="./img/logo.png" width="50px" style="border-radius:25px;"/>
+                    <img id="auth3" src="./img/favicon.png" width="50px" style="border-radius:25px;"/>
                     <div id="auth0">
                         <p style="margin-top:10px;margin-bottom:0px;"><b id="auth1"></b></p>
                         <p id="auth2"></p>
@@ -33,17 +32,16 @@
                 <hr />
                 <a id="login" class="mdl-navigation__link" href="javascript:location.pathname='/login'"><i class="material-icons a0" style="margin-right:8px;">power_settings_new</i>로그인</a>
                 <a id="logout" class="mdl-navigation__link" href="javascript:logout();"><i class="material-icons a0" style="margin-right:8px;">power_settings_new</i>로그아웃</a>
-                <a class="mdl-navigation__link" href="  " style="font-size:15px; color: black"><i class="fa fa-ticket" style="margin-right:10px; font-size:15px; color: black"></i>관람내역</a>
-                <a class="mdl-navigation__link" href="  " style="font-size:15px; color: black"><i class="fa fa-star" style="margin-right:10px; font-size:15px; color: black;"></i>즐겨찾기</a>
-                    <hr style="margin:0">    
-                <a class="mdl-navigation__link" href=" appinfo.html " style="font-size:15px; color: black"><i class="fa fa-code" style="margin-right:10px; font-size:15px; color: black "></i>앱 정보</a>
+                <a class="mdl-navigation__link" href="javascript:"><i class="material-icons a0" style="margin-right:8px;">local_play</i>관람내역</a>
+                <a class="mdl-navigation__link" href="javascript:"><i class="material-icons a0" style="margin-right:8px;">star</i>즐겨찾기</a>
+                <a class="mdl-navigation__link" href="javascript:"><i class="material-icons a0" style="margin-right:8px;">info</i>앱 정보</a>
             </nav>
         </div>
         <main class="mdl-layout__content" style="width:100%;height:100%;" id="main">
             <div id="map"></div>
             <script>
                 var map;
-                function initMap() {
+                initMap = () => {
                     map = new google.maps.Map(document.getElementById('map'), {
                         center: {lat: 37.558309, lng: 126.925512},
                         zoom: 14,
@@ -54,6 +52,20 @@
                         rotateControl: true,
                         fullscreenControl: false
                     });
+                    myLocation();
+                }
+                myLocation = () => {
+                    if (navigator.geolocation) {
+                        navigator.geolocation.getCurrentPosition(function(position) {
+                            var pos = {
+                            lat: position.coords.latitude,
+                            lng: position.coords.longitude
+                            };
+                            map.setCenter(pos);
+                        }, () => {
+                            console.error("Cannot get geoLocation");
+                        });
+                    }
                 }
             </script>
             <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAvm5fg3PXcil_ugvKZOnpfx684pjBfadc&callback=initMap" async defer></script>
@@ -85,8 +97,8 @@
                     <p style="color: rgba(0, 0, 0, 0.6); font-size: 12px; margin: 0px;">공연 정보</p> 
                 </div>
             </div>
-            <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored fbtn" onclick="menu();">
-                <i class="material-icons">add</i>
+            <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored fbtn" onclick="myLocation();">
+                <i class="material-icons">my_location</i>
             </button>
         </main>
     </div>
